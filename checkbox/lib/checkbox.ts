@@ -63,15 +63,6 @@ export class Checkbox extends ActionElement {
 
   @query('md-ripple') ripple!: MdRipple;
 
-  // MDC Foundation is unused
-  protected mdcFoundationClass = undefined;
-
-  protected mdcFoundation = undefined;
-
-  protected createAdapter() {
-    return {};
-  }
-
   protected override update(changedProperties: PropertyValues) {
     const oldIndeterminate = changedProperties.get('indeterminate');
     const oldChecked = changedProperties.get('checked');

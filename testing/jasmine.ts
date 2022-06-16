@@ -45,20 +45,20 @@ export function spyOnAllFunctions<T extends object>(obj: T) {
     target = Object.getPrototypeOf(target);
   }
   for (const key of functionKeys) {
-    spyOn(obj, key);
+    spyOn(obj, key as T[keyof T] extends Function ? keyof T : never);
   }
 
   const spyObj = obj as SpyGroup<T>;
   spyObj.and = {
     callThrough() {
       for (const key of functionKeys) {
-        (spyObj[key] as jasmine.Spy).and.callThrough();
+        (spyObj[key] as unknown as jasmine.Spy).and.callThrough();
       }
       return spyObj;
     },
     stub() {
       for (const key of functionKeys) {
-        (spyObj[key] as jasmine.Spy).and.stub();
+        (spyObj[key] as unknown as jasmine.Spy).and.stub();
       }
       return spyObj;
     },
